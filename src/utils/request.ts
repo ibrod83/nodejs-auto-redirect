@@ -19,5 +19,7 @@ export function isRequestOptionsObject(arg: any): boolean {
 
 
 export function extractOptionsFromURLObject(url:URL):Partial<RequestOptions>{
-    return  { path: url?.pathname, host: url?.host, hostname: url?.hostname, protocol: url?.protocol as string, port: url?.port}
+    const query = url.search
+
+    return  { path: query.length ? url?.pathname+query : url?.pathname, host: url?.host, hostname: url?.hostname, protocol: url?.protocol as string, port: url?.port}
 }

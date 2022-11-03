@@ -1,0 +1,9 @@
+import { ClientRequestArgs, IncomingMessage } from "http";
+
+export interface RequestOptions extends ClientRequestArgs { }
+
+export type RequestCallback = (res: CustomIncomingMessage) => void
+
+export interface CustomIncomingMessage extends IncomingMessage{
+    numRedirects:number
+}
