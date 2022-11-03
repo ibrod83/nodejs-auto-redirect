@@ -42,6 +42,26 @@ describe('Main tests', function(){
       timeoutCalled = true;
     })
   })
+
+  it('Should timeout, using setTimeout method', (done) => {
+
+    let timeoutCalled = false;
+    const request = http.request('http://localhost:8000/timeout?timeout=800',(response)=>{
+    if(!timeoutCalled){
+      throw new Error('Response received before timeout event')
+    }else{
+     
+      done()
+    }
+    })
+    request.end()
+   
+    request.setTimeout(750)
+    
+    request.on('timeout',()=>{//
+      timeoutCalled = true;
+    })
+  })
   
   it('Should timeout after 1 redirect', (done) => {
 
@@ -58,6 +78,34 @@ describe('Main tests', function(){
     
     request.on('timeout',()=>{
       timeoutCalled = true;
+    })
+
+    request.on('yoyo',()=>{
+      console.log('yoyo event!')
+    })
+  })
+
+  it('Should timeout after 1 redirect, using setTimeout method', (done) => {
+
+    let timeoutCalled = false;
+    const request = http.request('http://localhost:8000/redirect/?to=http://localhost:8000/timeout?timeout=800',(response)=>{
+    if(!timeoutCalled){
+      throw new Error('Response received before timeout event')
+    }else{
+      expect(response.numRedirects).toBe(1)
+      done()
+    }
+    })
+    request.end()   
+
+    request.setTimeout(750)
+    
+    request.on('timeout',()=>{
+      timeoutCalled = true;
+    })
+
+    request.on('yoyo',()=>{
+      console.log('yoyo event!')
     })
   })
 })
