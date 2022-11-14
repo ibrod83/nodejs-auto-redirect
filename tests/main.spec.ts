@@ -2,9 +2,15 @@ import { describe, it } from "mocha";
 import { http } from '../src/index'
 import expect from 'expect';
 import { incomingMessageToJson, promisifyRequest } from "./utils";//
-
+import rimraf from 'rimraf'
+import path from 'path'
 
 describe('Main tests', function(){
+
+  // before(function(done){
+  //   rimraf(path.join(__dirname,'temp'),()=>{done()})
+  //   // done()//
+  // })
  
   this.timeout(0);
 

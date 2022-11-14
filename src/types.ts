@@ -7,3 +7,5 @@ export type RequestCallback = (res: CustomIncomingMessage) => void
 export interface CustomIncomingMessage extends IncomingMessage{
     numRedirects:number
 }
+
+export type WriteMethodCallback = ((error: Error | null | undefined) => void)
